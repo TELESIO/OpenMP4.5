@@ -1,0 +1,47 @@
+##############################################################################################################################################################################
+# 								 													     #
+#                                                         Guide how to compile and use OpenMP 4.5 with clang compiler 						             #
+#								  													     #
+##############################################################################################################################################################################
+
+
+
+
+
+# get source code
+
+git clone https://github.com/clang-ykt/llvm_trunk.git
+cd llvm_trunk/tools
+git clone https://github.com/clang-ykt/clang_trunk.git clang
+cd ../projects
+git clone https://github.com/clang-ykt/openmp.git
+
+
+# Some comments : 
+# the first clone the llvm (Low Level Virtual Machine) compiler infrastructure
+# the second clone the clang compiler built on llvm
+# the third clone the openmp vesrion of clang in order to obtain the OpenMP 4.5 features
+
+
+# installation and building clang
+
+cd ..
+mkdir build
+cd build
+
+# before run cmake please check the compute capability of your cards, It have to be specified to cmake.
+# https://en.wikipedia.org/wiki/CUDA section GPUs supported
+# in cmake you can specify the compute capability by -DLIBOMPTARGET_NVPTX_COMPUTE_CAPABILITY="50" or if more than one -DLIBOMPTARGET_NVPTX_COMPUTE_CAPABILITY="50,60"
+# more specifications https://github.com/clang-ykt/openmp/blob/master/libomptarget/Build_With_CMake.txt
+
+cmake -DCMAKE_C_COMPILER=“GCC you want used" -DCMAKE_CXX_COMPILER=“G++ you want used"  -DCMAKE_INSTALL_PREFIX=“<where you want it>" -DLIBOMPTARGET_NVPTX_COMPUTE_CAPABILITY="50"
+
+make [-j#]
+make install
+
+# how to compile a program
+
+clang example.c -fopenmp=libomp -fopenmp-targets=nvptx64-nvidia-cuda -o example
+
+
+
