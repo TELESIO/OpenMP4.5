@@ -7,8 +7,8 @@
 
 Compiler information:
 
-gcc 7.0  work-in-progress. it will support nvidia hardware.
-clang 5.0 work-in-progress. it will support nvidia hardware.
+gcc 7.0  work-in-progress. it will support nvidia hardware. link to trunk: https://gcc.gnu.org/svn/gcc/trunk/
+clang 5.0 work-in-progress. it will support nvidia hardware. link to trunk: http://llvm.org/svn/llvm-project/
 IBM XL it supports nvidia hardware. not free.
 Intel only work with power8.
 
@@ -38,12 +38,11 @@ add this:
 		CmdArgs.push_back(Args.MakeArgString("sm_60")); 
 in clang/lib/Driver/Tools.cpp:12262
 
-instead of sm_60 specify your GPU compute capabilities.
+instead of "sm_60" specify your GPU compute capabilities.
 
-# before run cmake please check the compute capability of your cards, It have to be specified to cmake.
+# before run cmake please check the compute capability of your cards.
 # https://en.wikipedia.org/wiki/CUDA section GPUs supported
-# in cmake you can specify the compute capability by -DLIBOMPTARGET_NVPTX_COMPUTE_CAPABILITY="50" or if more than one -DLIBOMPTARGET_NVPTX_COMPUTE_CAPABILITY="50,60"
-# more specifications https://github.com/clang-ykt/openmp/blob/master/libomptarget/Build_With_CMake.txt
+
 
 
 # installation and building clang

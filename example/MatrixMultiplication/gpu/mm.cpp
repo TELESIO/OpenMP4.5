@@ -13,7 +13,7 @@
 #include "Time.h"
 
 #define NRA 5000                 /* number of rows in matrix A */
-#define NCA 5000                 /* number of columns in matrix A */
+#define NCA 5000                /* number of columns in matrix A */
 #define NCB 5000                  /* number of columns in matrix B */
 
 int main (int argc, char *argv[]) 
@@ -40,14 +40,14 @@ chunk = 10;                    /* set loop iteration chunk size */
         }
  
 
-// for (i=0; i<NRA; i++)
-//    {
-//    for(j=0; j<NCB; j++)
-//      for (k=0; k<NCA; k++)
+/* for (i=0; i<NRA; i++)
+    {
+    for(j=0; j<NCB; j++)
+      for (k=0; k<NCA; k++)
 	
-//        check[i*NRA+j] += a[i*NRA+j] * b[k*NCA+j];
+        check[i*NRA+j] += a[i*NRA+j] * b[k*NCA+j];
 	
-//    }
+    }*/
 int DimA=NRA*NCA;
 int DimB=NCB*NCA;
 int DimC=NRA*NCA;
@@ -55,7 +55,7 @@ struct Time * time= (struct Time *)malloc(sizeof(struct Time));
 startTime(time);
 /*** Spawn a parallel region explicitly scoping all variables ***/
 #pragma omp target map(to: a[0:DimA],b[0:DimB]) map(tofrom: c[0:DimC])
-#pragma omp teams distribute parallel for simd
+#pragma omp teams distribute parallel for simd collapse(2) schedule(static,1)
   for (i=0; i<NRA; i++)
     for(j=0; j<NCB; j++)
       for(k=0; k<NCA; k++)
