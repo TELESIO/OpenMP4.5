@@ -1,0 +1,1 @@
+clang ../mm.cpp -I ../../../common/ -fopenmp=libomp -o mm

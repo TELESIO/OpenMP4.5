@@ -5,9 +5,14 @@
 ##############################################################################################################################################################################
 
 
+Compiler information:
 
+gcc 7.0  work-in-progress. it will support nvidia hardware.
+clang 5.0 work-in-progress. it will support nvidia hardware.
+IBM XL it supports nvidia hardware. not free.
+Intel only work with power8.
 
-
+Clang version OpenMP 4.5 work-in-progress 
 # get source code
 
 git clone https://github.com/clang-ykt/llvm_trunk.git
@@ -20,7 +25,25 @@ git clone https://github.com/clang-ykt/openmp.git
 # Some comments : 
 # the first clone the llvm (Low Level Virtual Machine) compiler infrastructure
 # the second clone the clang compiler built on llvm
-# the third clone the openmp vesrion of clang in order to obtain the OpenMP 4.5 features
+# the third clone the openmp version of clang in order to obtain the OpenMP 4.5 features
+
+there is a bug in this version, in order to compile to the nvidia GPUs with the right compute capabilities 
+you need to modify some line of code before build the compiler.
+
+add this line 		
+		gpu_arch_name = "sm_60";
+in clang/lib/Driver/Tools.cpp:12142
+
+add this:
+		CmdArgs.push_back(Args.MakeArgString("sm_60")); 
+in clang/lib/Driver/Tools.cpp:12262
+
+instead of sm_60 specify your GPU compute capabilities.
+
+# before run cmake please check the compute capability of your cards, It have to be specified to cmake.
+# https://en.wikipedia.org/wiki/CUDA section GPUs supported
+# in cmake you can specify the compute capability by -DLIBOMPTARGET_NVPTX_COMPUTE_CAPABILITY="50" or if more than one -DLIBOMPTARGET_NVPTX_COMPUTE_CAPABILITY="50,60"
+# more specifications https://github.com/clang-ykt/openmp/blob/master/libomptarget/Build_With_CMake.txt
 
 
 # installation and building clang
