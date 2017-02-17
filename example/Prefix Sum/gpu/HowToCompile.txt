@@ -1,0 +1,1 @@
+clang ../ps.cpp -I ../../../common/ -fopenmp=libomp -fopenmp-targets=nvptx64-nvidia-cuda -o ps

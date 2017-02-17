@@ -7,7 +7,7 @@
 
 Compiler information:
 
-gcc 7.0  work-in-progress. it will support nvidia hardware. link to trunk: https://gcc.gnu.org/svn/gcc/trunk/
+gcc 7.0  work-in-progress. it will support nvidia hardware. link to trunk: https://gcc.gnu.org/svn/gcc/trunk/ https://gcc.gnu.org/wiki/Offloading
 clang 5.0 work-in-progress. it will support nvidia hardware. link to trunk: http://llvm.org/svn/llvm-project/
 IBM XL it supports nvidia hardware. not free.
 Intel only work with power8.
